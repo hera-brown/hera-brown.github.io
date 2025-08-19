@@ -1,0 +1,327 @@
+:root {
+    /* Colours have been sourced from the lovely cartoon-candy palette by polyphrog.
+     * Find them at https://lospec.com/palette-list/cartoon-candy !
+     * Names are by me, though; no idea what polyphrog would think.                 */
+    --cc-orange-juice   : rgb(255,135,65);
+    --cc-edinburgh-rock : rgb(255,206,149);
+    --cc-grapefruit     : rgb(241,139,105);
+    --cc-strawberry     : rgb(208,65,83);
+    --cc-cocoa-bean     : rgb(102,45,57);
+    --cc-warm-fudge     : rgb(174,91,57);
+    --cc-ovaltine       : rgb(232,158,86); /* Still not sure what ovaltine actually is. */
+    --cc-lemonade       : rgb(255,220,106);
+    --cc-lime-juice     : rgb(213,246,110);
+    --cc-avocado        : rgb(141,193,86);
+    --cc-cucumber       : rgb(74,122,71);
+    --cc-mint-chocolate : rgb(45,68,67);   /* I'm aware mint chocolate usually isn't green. */
+    --cc-dark-chocolate : rgb(23,17,26);
+    --cc-ube            : rgb(110,81,106);
+    --cc-porridge       : rgb(170,140,148);
+    --cc-oat-milk       : rgb(223,203,191);
+    --cc-sugar          : rgb(255,255,255);
+    --cc-strawberry-milk: rgb(255,153,169); /* Not to be confused with --cc-strawberry */
+    --cc-dragonfruit    : rgb(199,102,178);
+    --cc-parma-violet   : rgb(131,58,149);  /* They're usually a lighter purple, right? */
+    --cc-blueberry-juice: rgb(59,44,74);
+    --cc-cornflower     : rgb(73,85,136);
+    --cc-blue-raspberry : rgb(96,168,176);
+    --cc-mint-toothpaste: rgb(154,231,201);
+    /* What a delicious spread of colours. */
+ }
+
+/* The computer modern fonts (I spent a few hours trying to figure out the best font, and then I remembered) */
+@font-face {
+    font-family: 'cmu-sans-serif-bold';
+    src: url('../fonts/cmu-sans-serif-bold.ttf') format('truetype')
+}
+@font-face {
+    font-family: 'cmu-sans-serif';
+    src: url('../fonts/cmu-sans-serif.ttf') format('truetype')
+}
+@font-face {
+    font-family: 'cmu-sans-serif-italic';
+    src: url('../fonts/cmu-sans-serif-italic.ttf') format('truetype')
+}
+
+/* Everything's font weight is normal so that we can use different fonts for different weights instead. Likewise for obliqueness. */
+* {
+    font-weight : normal;
+    font-style : normal;
+}
+
+/* I've never figured out if the aside tag is meant for sidebars of webpages, or for tangential remarks in the middle of some text. To avoid having to work that out, I'll only style the direct children of the body as sidebars (in a sense, a sidebar is tangential to the webpage!) */
+body > aside{
+    position: fixed;
+    left: 0px;
+    width: 160px;
+    height: 100%;
+    top : 0px;
+}
+
+aside > nav{
+    position : relative;
+    top : 12px;
+
+    background-color: var(--cc-dark-chocolate);
+    color : var(--cc-sugar);
+    padding : 12px;
+    margin-left:12px;
+    border-radius : 12px;
+}
+
+/* Navigation header; shouldn't be too big */
+nav > h1{
+    font-size : 1.5em;
+    margin : 0px;
+    text-decoration : underline;
+    text-decoration-thickness : 2px; /* Makes the underline thicker */
+}
+/* Unordered lists in the navigation tab link to sections of their parent page.
+ * That is, if "talks" is in an unordered list below the "publications" link, then it
+ * links to ".../publications#talks". Or at least it ought to. */
+nav > ul{
+    list-style-type : none;
+    font-family : 'cmu-sans-serif';
+    font-size : 0.8em;
+    margin : 0px;
+    padding-left : 1em;
+}
+
+body > main{
+    position : absolute;
+    left: 172px; right  : 100%;
+    top : 100px; bottom : 110%;
+    width:35em; /* Want this to be readable! */
+
+    z-index : -10;
+}
+
+main ul{
+    margin : 0px;
+    list-style-type : square;
+    font-family : 'cmu-sans-serif';
+}
+
+main ol{
+    margin : 0px;
+    list-style-type : decimal;
+    font-family : 'cmu-sans-serif';
+}
+
+/* Generally, we want the headings in the main section to start at roughly the conceptual level that
+ * \section{} does in LaTeX. So we don't want them to be too big and scary. */
+main > h1{
+    font-size : 1.5em;
+}
+
+
+body > header{
+    position: absolute;
+    left: 172px; right:100%;
+    top : 12px; bottom : 20%;    
+    width:80%; height: 120px;
+
+    z-index : -10;
+}
+
+/* We want the title in the header to be a black box with rounded edges. For the text, we want the heading and subheading in white. Part of me is tempted to define a new class for this. */
+header > hgroup{
+    position : absolute;
+    
+    
+    background-color: var(--cc-dark-chocolate);
+    color : var(--cc-sugar);
+    padding : 12px;
+    border-radius : 12px;
+}
+
+/* For the title box */
+hgroup > h1{
+    margin : 0px;
+    white-space : nowrap; /* Makes sure that the header doesn't go into a second line. */
+}
+hgroup > h2{
+    margin : 0px;
+    margin-top : -12px; /* I feel guilty doing this. */
+    color : var(--cc-oat-milk);
+    white-space : nowrap; 
+}
+
+body > footer{
+    position : fixed;
+    background-color : var(--cc-oat-milk);
+    left : 0px;
+    bottom : 0%;
+    height : 16px; width : 100%;
+    padding : 0px; margin : 0px;
+}
+
+footer > p{
+    margin : 0px;
+    font-size : 0.75em;
+    color : var(--cc-cocoa-bean);
+}
+
+footer > #footer-left{
+    float : left;
+}
+
+footer > #footer-right{
+    float : right;
+}
+
+/* In case we ever need a document with six (!!) levels of structure, we style all the headings to be in bold face. */
+h1,h2,h3,h4,h5,h6{
+    font-family: 'cmu-sans-serif-bold';
+    font-style : normal;
+}
+
+p{
+    font-family: 'cmu-sans-serif';
+}
+em{
+    /* We don't artificially slant fonts here! */
+    font-style : normal;
+    font-family: 'cmu-sans-serif-italic';
+    color : var(--cc-cornflower);
+}
+/* The point of the following two tags is to remove gaps between unordered lists and the
+ * surrounding paragraph. It's a bit like [nosep] in LaTeX. Makes things prettier. */
+p + ul, p + ol{
+    margin-top : -16px;
+}
+ul + p, ol + p{
+    margin-top : 0px;
+}
+
+/* Gets the paragraphs nice and close to the section headers. */
+h1 + p{
+    margin-top : -16px;
+}
+
+/* We use font-family rather than font-weight because we respect fonts around here */
+a:link{
+    font-family: 'cmu-sans-serif-bold';
+    color : var(--cc-strawberry);
+    text-decoration : none;
+}
+a:active{
+    color : var(--cc-sugar);
+}
+a:visited{
+    color : var(--cc-ube);
+}
+a:hover{
+    text-decoration:underline;
+    text-decoration-thickness : 1.5px;
+}
+
+/* Style for the publication div. We make a bit of a hash of all the HTML tags we've been given to
+ * define listings for each publication. The h1 tag corresponds to the title of the publication,
+ * h2 to the by-line if there is one, date to the date on which it was published, and p to any
+ * remarks I have about the publication. Hope this works right. */
+.publication h1{
+    padding : 0px;
+    margin-bottom : 0px;
+    font-size : 1em;
+    font-family : 'cmu-sans-serif-bold';
+    font-weight : normal;
+}
+.publication h2{
+    padding : 0px;
+    margin : 0px;
+    margin-top : -4px;
+    
+    font-size : 0.8em;
+    font-family : 'cmu-sans-serif';
+    font-weight : normal;
+    color : var(--cc-cornflower);
+}
+
+.publication p{
+    padding: 0px;
+    margin : 0px;
+    margin-bottom : 8px;
+
+    font-size : 1em;
+    color : var(--cc-blueberry-juice);
+}
+
+.publication time{
+    float : right;
+    margin-top : -16px;
+    font-size : 0.75em;
+    color : var(--cc-cornflower);
+}
+
+.publication > hgroup > a{
+    float : right;
+    margin-top : -40px;
+}
+
+/* We don't want title links to change colour; they're only there for you to instinctively click on. */
+.title-link:link, .title-link:visited{
+    color : var(--cc-blueberry-juice);
+}
+/* You do get a little feedback for clicking on them, though. */
+.title-link:active{
+    color : var(--cc-strawberry);
+}
+
+/* Horrible, but it gets the LaTeX macro working. */
+.latex sub, .latex sup {
+    text-transform: uppercase;
+}
+
+.latex sub {
+    vertical-align: -0.5ex;
+    margin-left: -0.1667em;
+    margin-right: -0.125em;
+}
+
+.latex, .latex sub {
+    font-size: 1em;
+}
+
+.latex sup {
+    font-size: 0.85em;
+    vertical-align: 0.2em;
+    margin-left: -0.36em;
+    margin-right: -0.15em;
+}
+
+article h1{
+    padding : 0px;
+    margin-bottom : 0px;
+    font-size : 1em;
+    font-family : 'cmu-sans-serif-bold';
+    font-weight : normal;
+}
+
+article h2{
+    padding : 0px;
+    margin : 0px;
+    margin-top : -4px;
+    
+    font-size : 0.8em;
+    font-family : 'cmu-sans-serif';
+    font-weight : normal;
+    color : var(--cc-cornflower);
+}
+
+article time{
+    float : right;
+    margin-top : -16px;
+    font-size : 0.75em;
+    color : var(--cc-cornflower);
+    font-family : 'cmu-sans-serif';
+}
+
+article p{
+    padding: 0px;
+    margin : 0px;
+    margin-bottom : 8px;
+
+    font-size : 1em;
+    color : var(--cc-blueberry-juice);
+}

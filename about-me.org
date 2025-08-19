@@ -1,0 +1,26 @@
+title : About me
+subtitle : The sort of stuff I'm interested in.
+date : 31-07-25
+tags :
+
+My email is /(($\lambda x$.$x$.brown0707@gmail.com) hera)/! Feel free to get in touch. 
+
+Hello! I'm Hera (they/them), and at time of writing I'm a 4th (and final) year student studying computer science and philosophy at Oxford; that means I've finished the Bachelor's part of the degree, and am moving on to the integrated masters. So far the degree has been a roughly 50/50 split of computer science and philosophy (though, on the philosophy side, I've been focusing on the philosophy of mathematics and formal logic!), and in my fourth year I'll be focusing much more on the computer science side of things.
+
+* Computer science
+
+I'm broadly interested in logic and its applications to other areas of computer science and mathematics. I've been particularly interested in questions about which arithmetic theories are decidable, and what we can define in them. I've also been interested in the connections of logic to automata theory, as well as the complexity of logical theories. I've been seeing B&uuml;chi's name a lot recently.
+
+Outside of logic, though, I do have practical interests. In my spare time I enjoy thinking about TeX and LaTeX, and computer-aided graphic design more generally (and hopefully this website is a decent case study!). I've also been meaning to switch over to using GNU/Linux at some point. Generally, I enjoy tinkering with machines&#151;that's what got me into CS in the first place!&#151;and so I do still manage to find time to think about actual computers.
+
+* Philosophy
+
+On the philosophy side of things, I'm mainly interested in the philosophy of mathematics and logic. Questions about what makes mathematical statements true, why mathematicians (tend to) agree on mathematical statements, and what makes an axiom system correct are especially interesting to me. That being said, I've also been interested in aesthetics and the philosophy of art; asking about what makes something beautiful can get surprisingly analytic and rigorous, and I'll never pass up an opportunity to look at good art.
+
+* Otherwise
+
+Outside of academia, I enjoy a bit of gardening, life drawing and sewing (though not all three at once). I'm also a big fan of speculative fiction. Here are a few books I've enjoyed recently:
+- /Helliconia/ by Brian Aldiss,
+- /Embassytown/ by China Mi&eacute;ville, and
+- /Too Like the Lightning/ by Ada Palmer (and the /Terra Ignota/ series generally, really).
+If you have any further recommendations, then do let me know!

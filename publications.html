@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Hera's Publications</title>
+    <meta charset="utf-8" />
+    <meta name-"viewport" content-"width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="css/avernus.css" />
+    <link rel="stylesheet" href="css/avernus-main.css" />
+    <link rel="stylesheet" href="katex/katex.css" />
+    <script defer src="katex/katex.js"></script>
+    <script defer src="katex/contrib/auto-render.js" onload="renderMathInElement(document.body);"></script>
+  </head>
+  <!-- Throughout this page we use the "publication" class. That reworks the HTML tags to make individual publication entries below, but it may also cause some strange effects. Hopefully the logical markup isn't too funny, though.  -->
+  <body>
+    <header>
+      <hgroup>
+	<h1>Publications</h1>
+	<h2>A list of things I'm involved in that have found their way into academic venues.</h2>
+      </hgroup>
+    </header>
+    <aside> <!-- Just for navigation info, really. -->
+      <nav>
+	<h1>Navigation</h1> <!-- Hopefully it's permissible to put something that's not a link in the navigation section. -->
+	<a href="index.html" rel="sidebar">Home</a>
+	<a href="publications.html" rel="sidebar">Publications</a>
+	<ul>
+	  <a href="publications.html#Articles"><li>Articles</li></a>
+	  <a href="publications.html#Talks"><li>Talks</li></a>
+	</ul>
+	<a href="cv.pdf" rel="sidebar">CV</a>
+	<a href="blog.html" rel="sidebar">Blog</a>
+	<a href="about-me.html" rel="sidebar">About me</a>
+	<a href="contact.html" rel="sidebar">Contact</a>
+      </nav>
+    </aside>
+    <main>
+      <h1 id="Articles">Articles</h1>
+      <p>A list of articles I've authored or co-authored. Where possible, I'll provide arXiv links and a pdf.</p>
+      <ul class = "publication-list">
+	<li><div class="publication">
+	    <h1>Hardy field extensions of Presburger arithmetic.</h1>
+	    <time>Forthcoming</time>
+	    <p> This paper is about the (un)decidability of a class of extensions of Presburger arithmetic by Hardy field functions that grow more slowly than a polynomial. The definition of a Hardy field function is technical, but they can be thought of as well-behaved functions that look like polynomials. </p>
+	    <p> One nice result of this paper is that it shows the extension of Presburger arithmetic by a very general class of polynomials&#151;namely those with non-integer coefficients or exponents&#151;when taken to the nearest integer is, in general, undecidable. For better or for worse.
+	</div></li>
+      </ul>
+      <h1 id="Talks">Talks</h1>
+      <p>Talks I've given with an academic flavour. This includes everything from 5-minute lightning talks to whole 60-minute sessions. Again, where possible I'll provide slides for each of these. If I mention <q>the Compsoc</q> below, I'm talking about the Oxford University Computer Science and Technology Society! </p>
+      <ul class = "publication-list">
+	<li><div class="publication">
+	    <hgroup>
+	      <h1><a class="title-link" href="talks/the-philosophy-of-computer-science.pdf">The Philosophy of Computer Science</a></h1>
+	      <h2>What did computer science and philosophy students do before AI?</h2>
+	      <a href="talks/the-philosophy-of-computer-science.pdf">[PDF]</a>
+	      <time>2025-05-03</time>
+	      <p> This was a more light-hearted talk, meant for a five-minute lightning talk session at the Compsoc. It's not rigorously academic, but the ideas in it are still interesting, and do raise actual philosophical questions.</p>
+	    </hgroup>
+	</div></li>
+	<li class="publication-list"><div class="publication">
+	    <hgroup>
+	      <h1>
+		<a class="title-link" href="talks/decidability-of-presburger-arithmetic.pdf">Decidability of Presburger arithmetic</a>
+	      </h1>
+	      <h2>How far does decidability go?</h2>
+	      <a href="talks/decidability-of-presburger-arithmetic.pdf">[PDF]</a>
+	      <time>2025-03-13</time>
+	      <!-- Might be nice to add citations in here, like on Lamport's webpage -->
+	      <p>This talk was an hour long, given as part of the Compsoc's termly talk series. The talk covers Presburger's proof of the decidability of Presburger arithmetic, as well as some of the work Jakub Konieczny and I had been doing on the subject. The talk was aimed at non-specialist CS undergraduates.</p>
+	    </hgroup>
+	</div></li>
+	<li><div class="publication">
+	    <hgroup>
+	      <h1><a class="title-link" href="talks/decidability-of-arithmetic-theories.pdf">
+		Decidability of Arithmetic Theories
+	      </a></h1>
+	      <h2>What can't computers do?</h2>
+	      <a href="talks/decidability-of-arithmetic-theories.pdf">[PDF]</a>
+	      <time>2025-02-26</time>
+	      <p> This talk was about decidability at a high level, and aimed at a general student audience. It was given at the CatzXCon (Catz eXchange Conference), which was for the St. Catherine's college (i.e. the Oxford college) community to share any research that we'd been doing. It was preceded by a talk about early twentieth century government conspiracy theories, and followed by a talk about language preservation in Inner Mongolia, so that gives you an idea of how general the talk had to be!</p>
+	    </hgroup>
+	</div></li>
+	<li><div class="publication">
+	    <hgroup>
+	      <h1><a class="title-link" href="talks/traversing-LaTeX.pdf">
+		Traversing $\LaTeX$
+	      </a></h1>
+	      <h2>The Harried Undergraduate's Guide</h2>
+	      <a href="talks/traversing-LaTeX.pdf">[PDF]</a>
+	      <time>2025-02-22</time>
+	    </hgroup>	      
+	      <p> Given as an hour-long talk for the Compsoc's Learn to Code talk series. It's aimed mostly at getting CS undergraduates to actually typeset their problem sheets rather than handwriting everything, and so the talk walks through an example of that. I hope the talk worked.</p>
+	</div></li>
+      </ul>
+    </main>
+        <footer> <!-- Crunchy bits of info at the bottom of the page. --> 
+      <!-- Has an identity since there really ought to just be one of these  -->
+      <p id="footer-left">
+	Website made by Hera; all content of the website licenced under the GNU General Public License.
+      </p>
+      <p id="footer-right">
+	Uncompromisingly built using perl. Last updated on 02-08-25.
+      </p>
+    </footer>
+  </body>
+</html>

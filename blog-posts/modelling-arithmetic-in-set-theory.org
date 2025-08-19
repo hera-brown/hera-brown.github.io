@@ -1,0 +1,80 @@
+title : Modelling arithmetic in set theory
+subtitle : What is it that numbers are?
+date : 16-07-2025
+tags : model-theory, set-theory, mathematical-philosophy
+
+When doing mathematics, you might wonder what it is that makes mathematical statements true. It's true that $2 + 2 = 4$, sure, but what makes it true is unclear. Ask a mathematician, and they may heartily tell you that it follows from the axioms. But, if that's the case, what is it that makes the axioms true?
+
+One promising answer is that the axioms are true just because they accurately describe the world. Consider the axioms of Euclidean geometry, for instance. One of those axioms states that two parallel lines meet either at all points or at none, and if you test that out on a piece of paper (without bending or tearing it!) you'll see that it's true. The other axioms are similarly correct. So, the axioms of Euclidean geometry accurately describe how lines on a piece of paper behave, and so we want to say that that's what makes them true.
+
+What it is about the world that the axioms of arithmetic are accurately describing is a little bit more unclear. Here, then, we'll try and work out exactly what it is they do describe, and in the process we'll run into a fair bit of set theory. By the end, we'll know what makes the axioms of arithmetic true; we'll also end up with more questions than we started with.
+
+Before getting started, let's make it formally clear what we're trying to do. Let's take the axioms of arithmetic we've been referring to to be the axioms of /Peano arithmetic/ in particular. Those axioms are as follows:
+(P1) $\forall x s(x) \not = x_0$,
+(P2) $\forall x \forall y\ s(x) = s(y) \rightarrow x = y$, and
+(P3) for every set $X$, the axiom $(x_0 \in X \wedge (x \in X \rightarrow s(x) \in X)) \rightarrow X = A$.
+These hold relative to some function $s$, which we'll call the successor, some element $x_0$, which we'll call the zero, and some set $A$, which we'll call the universe. The axiom P1 therefore says that the zero has no successor, the axiom P2 that the successor function is injective, and the axiom P3 that any set that contains the zero and is closed under the successor function is equal to the universe.
+
+Note that the system $\langle 0, +1, \mathbb{N} \rangle$ satisfies the above axioms, as we'd expect. Those axioms may not look like much, but using recursion and just a little logic we can define addition, multiplication, and all the usual operations of arithmetic. They're therefore quite powerful!
+
+The goal of this post, then, is to work out what it is that makes these axioms true, and so let's get started.
+
+* What is it that the axioms of arithmetic describe?
+
+We want an easy answer to the question of what makes the axioms of arithmetic true, and so a first guess would be that it's something obvious, like what makes the axioms of Euclidean geometry true. Perhaps numbers just exist outright. Since the axioms of arithmetic describe those numbers, they come out true. The problem with this is that we don't have as good a reason to suppose that numbers exist as we do with lines. Lines are easy to see and write down; numbers can't be seen, and only symbols that represent them can be written down. We'd like to talk about a more concrete object than abstract numbers, and so let's try find a better explanation.
+
+Perhaps, then, numbers are really just quantities. If there are two pigeons outside my window, and those two pigeons are joined by a group of three pigeons, then it follows that there are five pigeons outside my window. The trouble with this line of argument is that we're not doing arithmetic on quantities of pigeons, or quantities of anything in particular. We're just doing arithmetic on numbers. The abstract numbers we work with in mathematics just don't correspond to quantities in the way that abstract lines in geometry correspond to physical lines. So we can't appeal to quantities to ground the axioms of arithmetic.
+
+But what might work is to say that numbers aren't objects in themselves, but are really some other kind of mathematical object. That other kind of mathematical object is what's really describing the world, and the numbers are just a special case of that object. This seems promising, and so let's try to see what we can do with this. Here, we'll model the axioms of arithmetic within set theory.
+
+* How do sets model the axioms of arithmetic?
+
+Now, in order to model arithmetic in set theory, we first need to define a zero, successor, and universe in set theory that satisfy the axioms P1--P3 above. Let's start by defining the zero element. Intuitively, we want something that's empty, and so let's take our zero here to be the empty set. That would make sense.
+
+We, of course, want a guarantee from the axioms of set theory that the empty set really does exist, and indeed the aptly named /Empty Set axiom/ below tells us this:
+- $\exists x \forall y\ y \not \in x$.
+The Empty Set axiom just states that there's a set that has no members, which is precisely what the empty set is.
+
+We'll also need to define a successor operation on sets. Now, that successor operation has to be injective, and has to send no elements to zero. So we want an operation that makes sets bigger, in an rough sense, and we can get that by defining the successor operation to be $x^+ := \{x\}$.
+
+Of course, now we need to make sure that, given a set $x$, the set $x^+$ actually exists. To do this, we'll invoke the /Pair Set axiom/:
+- $\forall x \forall y \exists z \forall w\ (w \in z \leftrightarrow (w = x \vee w = y))$.
+That expresses that, for any two sets $y$ and $z$, there exists a set $x$ whose only two elements are $y$ and $z$. We denote that set by $\{y,z\}$. Now, given a set $x$, we can take $y$ and $z$ to both be equal to $x$, and by the Pair Set axiom we get that the set $\{x, x\}$ exists. But of course that's equal to the set $\{x\}$, as we wanted.
+
+We have to be careful, though! We've talked about sets being equal in the above, but haven't formally defined that. Since we're seeing what follows from the axioms, we'd best hope that there's an axiom about equality. Indeed there is, namely the /axiom of Extensionality/:
+- $\forall x \forall y\ (x = y \leftrightarrow \forall z\ (z \in x \leftrightarrow z \in y))$,
+which states that two sets $x$ and $y$ are equal precisely when they have the same elements. That's what we'd expect, and so we can now safely talk about two sets being equal.
+
+Now, we have a choice of zero and the successor function, namely $\emptyset$ and $x \mapsto x^+$. Let's verify that these actually do satisfy the axioms P1 and P2; we'll leave P3 for later when we've defined our universe. Let's start with the following.
+
+** Proposition: There's no set $x$ such that $x^+ = \emptyset$.
+*** Proof.
+Suppose there were such a natural $x$. Then we'd have, by the definition of the successor function, that $\{x\} = \emptyset$. But the set on the left has an element---namely $x$---and the set on the right doesn't. But by the axiom of Extensionality, we know that two sets are equal /iff/ they have the same elements. So $\{x\}$ and $\emptyset$ aren't equal. Contradiction. So it must be that there's no set $x$ with $x^+ = \emptyset$, as we wanted.
+
+That's P1 satisfied. Let's now show that P2 is satisfied by $\emptyset$ and $x \mapsto x^+$:
+
+** Proposition: For all sets $x$ and $y$, if $x^+ = y^+$, then $x = y$.
+*** Proof.
+Suppose that $x^+ = y^+$. Then, by the definition of the successor function, we know that $\{x\} = \{y\}$. By the axiom of Extensionality, it must be that $\{x\}$ and $\{y\}$ share the same elements. But the only element of $\{x\}$ is $x$, and the only element of $\{y\}$ is $y$. Hence it must be that $x = y$, as we wanted.
+
+So we've satisfied P2 with our successor function as well. Now we'd like to find a universe that satisfies P3. If such a universe is going to be closed under the successor function, and if the successor function makes sets bigger and bigger, then we're going to want the universe to be infinite. Unfortunately, the axioms we've got so far don't guarantee us an infinite set! We're going to have to deploy the aptly named /axiom of Infinity/ to get a universe, then. The axiom of Infinity is as follows.
+- $\exists x\ (\emptyset \in x \wedge \forall y\ (y \in x \implies y^+ \in x))$.
+It feels a bit like cheating that this is an axiom, but there you go. That guarantees the existence of a set which contains the empty set and is closed under the successor function, and that's exactly what we wanted. Let's call the infinite set we get from the axiom of Infinity "$\mathbb{N}$", a rather evocative name.
+
+With all that, we can see that the structure $\langle \emptyset, x \mapsto x^+, \mathbb{N} \rangle$ satisfies the axioms P1--P3, and so we've constructed a model of arithmetic in set theory. Great! What makes the axioms of arithmetic true, it seems, is that they're modelled by the axioms of set theory.
+
+* Concluding remarks
+
+It's very nice to reduce the axioms of arithmetic to set theory. It lets us delegate questions about what makes statements of arithmetic true, and questions about what numbers really are, to questions about set theory. But there are some worries.
+
+For one, there are technical points that have been glossed over here! For one, we've talked about the successor function without ever formally defining what a function is in set theory. We can do that, it turns out, but not without the help of some additional axioms.
+
+For two, it would also be nice to see that the axioms of Peano arithmetic actually do get us all the arithmetic we want; it's not clear out the door that they get us exponentiation, or let us define the prime numbers, and so on. We can indeed do this, but it does require quite a bit more technical work than what we've done here (it is good fun, though).
+
+There are also philosophical concerns we might have. We now have to show that the axioms of set theory are true, which throws up challenges. We might resort to sets being real, but this is contentious.
+
+There's also a worry that something feels intuitively wrong by taking numbers to really just be a kind of set. That's not the way we learned it in school, that's not the way the vast majority of people think about numbers, and it just doesn't feel quite natural. If we can get by in mathematics without ever realising that numbers are sets, then we have good reason to suspect that numbers aren't sets at all.
+
+Finally, there are other models of Peano arithmetic that we can define in other mathematical theories. We can define numbers as types, for instance. Further, there are other models of Peano arithmetic /in set theory itself/! We could have taken the successor function to be $x \mapsto x \cup \{x\}$ instead, found an appropriate universe, and still satisfied the Peano axioms. Given that the sets $\{\{x\}\}$ and $\{x, \{x\}\}$ are different, they can't both be equal to the number one.
+
+In any case, I hope the above has helped whet your appetite for both mathematical philosophy and a spot of model theory! If you have any questions, then do feel free to ask.

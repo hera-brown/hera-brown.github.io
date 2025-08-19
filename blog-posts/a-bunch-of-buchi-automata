@@ -1,0 +1,5 @@
+title : A Bunch of B&uumlaut;chi automata
+date : 23-07-2025
+tags : automata-theory, buchi-automata, definability
+
+I've been reading up around B&uumlaut;chi automata (BAs) recently, as well as their cousins (Muller, Rabin, Streett and parity automata, amongst others), and have been wondering what similar automata exist that may or may not be equivalent to B&uumlaut;chi automata. So here's a catalogue of some automata I've thought up

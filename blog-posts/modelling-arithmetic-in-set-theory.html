@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <!-- Hello! You've found the markup for my website.  -->
+  <!-- Feel free to cut or copy anything you see below; it was all made by me.  -->
+  <!-- If anything below is unclear or you'd like an explanation, do send an email!  -->
+  <head>
+    <title>Modelling arithmetic in set theory</title>
+    <base href="https://hera-brown.github.io">
+    <meta charset="utf-8" />
+    <meta name="viewport" content-width="device-width, initial-scale=1" />
+    <link rel="stylesheet" href="css/avernus.css" />
+    <link rel="stylesheet" href="katex/katex.css" />
+    <script defer src="katex/katex.js"></script>
+    <script defer src="katex/contrib/auto-render.js" onload="renderMathInElement(document.body);"></script>
+    <link rel="icon" href="img/frog64.png">
+
+</head>
+<body>
+    <header>
+      <hgroup>
+      <h1>Modelling arithmetic in set theory</h1>
+      <h2>What is it that numbers are?</h2>
+      </hgroup>
+    </header>
+<aside> <!-- Just for navigation info, really. -->
+  <nav>
+    <h1>Navigation</h1> <!-- Hopefully it's permissible to put something that's not a link in the navigation section. -->
+    <a href="index.html" rel="sidebar">Home</a>
+    <a href="publications.html" rel="sidebar">Publications</a>
+    <ul>
+      <a href="publications.html#Articles"><li>Articles</li></a>
+      <a href="publications.html#Talks"><li>Talks</li></a>
+    </ul>
+    <a href="cv.pdf" rel="sidebar">CV</a> 
+    <a href="blog.html" rel="sidebar">Blog</a> 
+    <a href="about-me.html" rel="sidebar">About me</a>
+    <a href="contact.html" rel="sidebar">Contact</a>
+  </nav>
+</aside>
+<main>
+<p>When doing mathematics, you might wonder what it is that makes mathematical statements true. It&#8217;s true that $2 + 2 = 4$, sure, but what makes it true is unclear. Ask a mathematician, and they may heartily tell you that it follows from the axioms. But, if that&#8217;s the case, what is it that makes the axioms true?</p>
+<p>One promising answer is that the axioms are true just because they accurately describe the world. Consider the axioms of Euclidean geometry, for instance. One of those axioms states that two parallel lines meet either at all points or at none, and if you test that out on a piece of paper (without bending or tearing it!) you&#8217;ll see that it&#8217;s true. The other axioms are similarly correct. So, the axioms of Euclidean geometry accurately describe how lines on a piece of paper behave, and so we want to say that that&#8217;s what makes them true.</p>
+<p>What it is about the world that the axioms of arithmetic are accurately describing is a little bit more unclear. Here, then, we&#8217;ll try and work out exactly what it is they do describe, and in the process we&#8217;ll run into a fair bit of set theory. By the end, we&#8217;ll know what makes the axioms of arithmetic true; we&#8217;ll also end up with more questions than we started with.</p>
+<p>Before getting started, let&#8217;s make it formally clear what we&#8217;re trying to do. Let&#8217;s take the axioms of arithmetic we&#8217;ve been referring to to be the axioms of <em>Peano arithmetic</em> in particular. Those axioms are as follows:</p>
+<p>(P1) $\forall x s(x) \not = x_0$,</p>
+<p>(P2) $\forall x \forall y\ s(x) = s(y) \rightarrow x = y$, and</p>
+<p>(P3) for every set $X$, the axiom $(x_0 \in X \wedge (x \in X \rightarrow s(x) \in X)) \rightarrow X = A$.</p>
+<p>These hold relative to some function $s$, which we&#8217;ll call the successor, some element $x_0$, which we&#8217;ll call the zero, and some set $A$, which we&#8217;ll call the universe. The axiom P1 therefore says that the zero has no successor, the axiom P2 that the successor function is injective, and the axiom P3 that any set that contains the zero and is closed under the successor function is equal to the universe.</p>
+<p>Note that the system $\langle 0, +1, \mathbb{N} \rangle$ satisfies the above axioms, as we&#8217;d expect. Those axioms may not look like much, but using recursion and just a little logic we can define addition, multiplication, and all the usual operations of arithmetic. They&#8217;re therefore quite powerful!</p>
+<p>The goal of this post, then, is to work out what it is that makes these axioms true, and so let&#8217;s get started.</p>
+<h1>What is it that the axioms of arithmetic describe?</h1>
+<p>We want an easy answer to the question of what makes the axioms of arithmetic true, and so a first guess would be that it&#8217;s something obvious, like what makes the axioms of Euclidean geometry true. Perhaps numbers just exist outright. Since the axioms of arithmetic describe those numbers, they come out true. The problem with this is that we don&#8217;t have as good a reason to suppose that numbers exist as we do with lines. Lines are easy to see and write down; numbers can&#8217;t be seen, and only symbols that represent them can be written down. We&#8217;d like to talk about a more concrete object than abstract numbers, and so let&#8217;s try find a better explanation.</p>
+<p>Perhaps, then, numbers are really just quantities. If there are two pigeons outside my window, and those two pigeons are joined by a group of three pigeons, then it follows that there are five pigeons outside my window. The trouble with this line of argument is that we&#8217;re not doing arithmetic on quantities of pigeons, or quantities of anything in particular. We&#8217;re just doing arithmetic on numbers. The abstract numbers we work with in mathematics just don&#8217;t correspond to quantities in the way that abstract lines in geometry correspond to physical lines. So we can&#8217;t appeal to quantities to ground the axioms of arithmetic.</p>
+<p>But what might work is to say that numbers aren&#8217;t objects in themselves, but are really some other kind of mathematical object. That other kind of mathematical object is what&#8217;s really describing the world, and the numbers are just a special case of that object. This seems promising, and so let&#8217;s try to see what we can do with this. Here, we&#8217;ll model the axioms of arithmetic within set theory.</p>
+<h1>How do sets model the axioms of arithmetic?</h1>
+<p>Now, in order to model arithmetic in set theory, we first need to define a zero, successor, and universe in set theory that satisfy the axioms P1&#150;P3 above. Let&#8217;s start by defining the zero element. Intuitively, we want something that&#8217;s empty, and so let&#8217;s take our zero here to be the empty set. That would make sense.</p>
+<p>We, of course, want a guarantee from the axioms of set theory that the empty set really does exist, and indeed the aptly named <em>Empty Set axiom</em> below tells us this:</p>
+<ul>
+<li> $\exists x \forall y\ y \not \in x$.</li>
+</ul>
+<p>The Empty Set axiom just states that there&#8217;s a set that has no members, which is precisely what the empty set is.</p>
+<p>We&#8217;ll also need to define a successor operation on sets. Now, that successor operation has to be injective, and has to send no elements to zero. So we want an operation that makes sets bigger, in an rough sense, and we can get that by defining the successor operation to be $x^+ := \{x\}$.</p>
+<p>Of course, now we need to make sure that, given a set $x$, the set $x^+$ actually exists. To do this, we&#8217;ll invoke the <em>Pair Set axiom</em>:</p>
+<ul>
+<li> $\forall x \forall y \exists z \forall w\ (w \in z \leftrightarrow (w = x \vee w = y))$.</li>
+</ul>
+<p>That expresses that, for any two sets $y$ and $z$, there exists a set $x$ whose only two elements are $y$ and $z$. We denote that set by $\{y,z\}$. Now, given a set $x$, we can take $y$ and $z$ to both be equal to $x$, and by the Pair Set axiom we get that the set $\{x, x\}$ exists. But of course that&#8217;s equal to the set $\{x\}$, as we wanted.</p>
+<p>We have to be careful, though! We&#8217;ve talked about sets being equal in the above, but haven&#8217;t formally defined that. Since we&#8217;re seeing what follows from the axioms, we&#8217;d best hope that there&#8217;s an axiom about equality. Indeed there is, namely the <em>axiom of Extensionality</em>:</p>
+<ul>
+<li> $\forall x \forall y\ (x = y \leftrightarrow \forall z\ (z \in x \leftrightarrow z \in y))$,</li>
+</ul>
+<p>which states that two sets $x$ and $y$ are equal precisely when they have the same elements. That&#8217;s what we&#8217;d expect, and so we can now safely talk about two sets being equal.</p>
+<p>Now, we have a choice of zero and the successor function, namely $\emptyset$ and $x \mapsto x^+$. Let&#8217;s verify that these actually do satisfy the axioms P1 and P2; we&#8217;ll leave P3 for later when we&#8217;ve defined our universe. Let&#8217;s start with the following.</p>
+<h2>Proposition: There&#8217;s no set $x$ such that $x^+ = \emptyset$.</h2>
+<h3>Proof.</h3>
+<p>Suppose there were such a natural $x$. Then we&#8217;d have, by the definition of the successor function, that $\{x\} = \emptyset$. But the set on the left has an element&#151;namely $x$&#151;and the set on the right doesn&#8217;t. But by the axiom of Extensionality, we know that two sets are equal <em>iff</em> they have the same elements. So $\{x\}$ and $\emptyset$ aren&#8217;t equal. Contradiction. So it must be that there&#8217;s no set $x$ with $x^+ = \emptyset$, as we wanted.</p>
+<p>That&#8217;s P1 satisfied. Let&#8217;s now show that P2 is satisfied by $\emptyset$ and $x \mapsto x^+$:</p>
+<h2>Proposition: For all sets $x$ and $y$, if $x^+ = y^+$, then $x = y$.</h2>
+<h3>Proof.</h3>
+<p>Suppose that $x^+ = y^+$. Then, by the definition of the successor function, we know that $\{x\} = \{y\}$. By the axiom of Extensionality, it must be that $\{x\}$ and $\{y\}$ share the same elements. But the only element of $\{x\}$ is $x$, and the only element of $\{y\}$ is $y$. Hence it must be that $x = y$, as we wanted.</p>
+<p>So we&#8217;ve satisfied P2 with our successor function as well. Now we&#8217;d like to find a universe that satisfies P3. If such a universe is going to be closed under the successor function, and if the successor function makes sets bigger and bigger, then we&#8217;re going to want the universe to be infinite. Unfortunately, the axioms we&#8217;ve got so far don&#8217;t guarantee us an infinite set! We&#8217;re going to have to deploy the aptly named <em>axiom of Infinity</em> to get a universe, then. The axiom of Infinity is as follows.</p>
+<ul>
+<li> $\exists x\ (\emptyset \in x \wedge \forall y\ (y \in x \implies y^+ \in x))$.</li>
+</ul>
+<p>It feels a bit like cheating that this is an axiom, but there you go. That guarantees the existence of a set which contains the empty set and is closed under the successor function, and that&#8217;s exactly what we wanted. Let&#8217;s call the infinite set we get from the axiom of Infinity "$\mathbb{N}$", a rather evocative name.</p>
+<p>With all that, we can see that the structure $\langle \emptyset, x \mapsto x^+, \mathbb{N} \rangle$ satisfies the axioms P1&#150;P3, and so we&#8217;ve constructed a model of arithmetic in set theory. Great! What makes the axioms of arithmetic true, it seems, is that they&#8217;re modelled by the axioms of set theory.</p>
+<h1>Concluding remarks</h1>
+<p>It&#8217;s very nice to reduce the axioms of arithmetic to set theory. It lets us delegate questions about what makes statements of arithmetic true, and questions about what numbers really are, to questions about set theory. But there are some worries.</p>
+<p>For one, there are technical points that have been glossed over here! For one, we&#8217;ve talked about the successor function without ever formally defining what a function is in set theory. We can do that, it turns out, but not without the help of some additional axioms.</p>
+<p>For two, it would also be nice to see that the axioms of Peano arithmetic actually do get us all the arithmetic we want; it&#8217;s not clear out the door that they get us exponentiation, or let us define the prime numbers, and so on. We can indeed do this, but it does require quite a bit more technical work than what we&#8217;ve done here (it is good fun, though).</p>
+<p>There are also philosophical concerns we might have. We now have to show that the axioms of set theory are true, which throws up challenges. We might resort to sets being real, but this is contentious.</p>
+<p>There&#8217;s also a worry that something feels intuitively wrong by taking numbers to really just be a kind of set. That&#8217;s not the way we learned it in school, that&#8217;s not the way the vast majority of people think about numbers, and it just doesn&#8217;t feel quite natural. If we can get by in mathematics without ever realising that numbers are sets, then we have good reason to suspect that numbers aren&#8217;t sets at all.</p>
+<p>Finally, there are other models of Peano arithmetic that we can define in other mathematical theories. We can define numbers as types, for instance. Further, there are other models of Peano arithmetic <em>in set theory itself</em>! We could have taken the successor function to be $x \mapsto x \cup \{x\}$ instead, found an appropriate universe, and still satisfied the Peano axioms. Given that the sets $\{\{x\}\}$ and $\{x, \{x\}\}$ are different, they can&#8217;t both be equal to the number one.</p>
+<p>In any case, I hope the above has helped whet your appetite for both mathematical philosophy and a spot of model theory! If you have any questions, then do feel free to ask.</p>
+</main>
+<footer> <!-- Crunchy bits of info at the bottom of the page. -->
+  <!-- Theoretical Computer Scientists for Future! You should really join.  -->
+  <a href="https://tcs4f.org" 
+     style="display: inline-block;
+	    background-color: #17111a; border: 2px solid #CCCCCC;
+	    padding: 5px; margin: 10px; border-radius: 5px;">
+    <img width="100" src="img/tcs4f-logo.svg" 
+	 alt="Theoretical Computer Scientists for Future">
+  </a>
+  <!-- Has an identity since there really ought to just be one of these  -->
+  <p id="footer-left">
+    Website made by Hera; all content of the website licenced under the GNU General Public License.
+  </p>
+  <p id="footer-right">
+    Uncompromisingly built using perl. Last updated on 19-08-2025.
+  </p>
+</footer>
+ 
+
+
+</body>
+</html>

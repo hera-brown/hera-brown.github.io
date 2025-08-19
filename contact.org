@@ -1,0 +1,8 @@
+title : Contact Details
+subtitle : How to reach me.
+date : 01-08-25
+tags :
+
+My email is /(($\lambda x.x$.brown0707@gmail.com) hera)/! I've used the lambda notation to stop my email being scraped by bots. In case that's made it unclear what my email actually is, then if you replace the <q>$\lambda x.x$</q> bit with <q>hera</q>, you've got my email (in parentheses)!
+
+I'm always happy to chat, so do get in touch.

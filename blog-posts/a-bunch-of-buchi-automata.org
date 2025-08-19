@@ -1,0 +1,137 @@
+title : A Bunch of B&uuml;chi automata
+subtitle : A family of objects that may, or may not, be B&uuml;chi automata
+date : 23-07-2025
+tags : automata-theory, buchi-automata, definability
+
+I've been reading up around B&uuml;chi automata (BAs) recently, as well as their cousins (Muller, Rabin, Streett and parity automata, amongst others), and have been wondering what similar automata exist that may or may not be equivalent to B&uuml;chi automata. So here's a catalogue of some automata I've thought up as of late.
+
+* Different acceptance conditions
+
+First off, let's keep most of the rest of the structure the same; every automaton in this section will be the usual five-tuple $\tuple{Q, \alphabet, \delta, q_0, F}$ of states, the alphabet, the transition function (defined in the usual way), the initial state, and the accepting states. The main difference is that $F$ may not be a set.
+
+For BAs generally, we have $F$ be just a set of states, and say that a word $w$ is accepted just when there's an infinite run on the automaton that visits the set of states $F$ infinitely often. Let's change both.
+
+As a note, I'm generally assuming the simulations below hold between nondeterministic automata. If there's anything interesting to note there, though, I'll bring it up.
+
+** Sequential automata
+
+Let $F = \tuple{ F_1, F_2, \dots, F_n }$. We say that a sequential automaton accepts a word just when a run on that word vists each of $F_i$ infinitely often, and when the run visits each of those states sequentially. We reject if the automaton visits any accepting states out of sequence.
+
+Formally, given the sequence of states $\rho = q_1, q_2, \dots$ that constitutes a run, we say that $\rho$ is accepted just when $\textrm{acc}(\rho)$---that is, the restriction of $\rho$ to accepting states---is infinite, and $\textrm{acc}(\rho)[i]$---that is, the $i^{th}$ state of that sequence---is in $F_i$.
+
+*** Can a B&uuml;chi automaton simulate it?
+
+Yes. Given a simultaneous automaton $\tuple{Q, \alphabet, \delta, q_0, \tuple{F_1, \dots, F_n}}$, we can construct a simulating BA by the following steps:
+(1) make $n$ copies of the simultaneous automaton,
+(2) delete all outgoing transitions from each of the final states, and
+(3) in the $i^{th}$ copy of the automaton, add a transition from each of the final states in $F_i$ to where they otherwise would've gone in the $(i \oplus 1)^{th}$ (that's addition /modulo/ $n$) automaton.
+Formally speaking, we construct the automaton $\tuple{Q \times n, \alphabet, q_0, \delta\prime, \{\tuple{f, i} \mid f \in F_i \}}$. We define $\delta\prime$ by the following:
+- $(\tuple{q,i}, a, \tuple{q\prime,i}) \in \delta'$ if $(q, i, q\prime) \in \delta$ and $q'$ isn't an accepting state, and
+- $(\tuple{f,i}, a, \tuple{q', i \oplus 1}) \in \delta\prime$ if $(f, a, q) \in \delta$ and $f$ is an accepting state.
+That ought to do the trick.
+
+*** Can it simulate a B&uuml;chi automaton?
+
+We'd certainly hope so. If we want to simulate a given BA $\tuple{Q, \alphabet, \delta, q_0, F_0}$ then we can just take our sequential accepting states to be $F = \tuple{F_0}$. Then our simulatenous automaton accepts $w$ just when the run on $w$ visits $F_0$ infinitely often; that's just what we wanted.
+
+** Keen automata
+
+Let $F$ just be $Q$. A keen automaton has the same acceptance condition as a BA; thus, a keen automaton is just a BA where every state is an accepting state. Intuitively, that seems very weak, and so let's see if it is.
+
+*** Can a B&uuml;chi automaton simulate it?
+
+Definitely; every keen automaton already is a BA! We've just restricted what the set of accepting states can be.
+
+*** Can it simulate a B&uuml;chi automaton?
+
+No, it can't. We prove this by showing that there are languages that a BA can recognise that a keen automaton can't; given a BA that recognises such a language, then, no keen automaton can simulate it.
+
+That language will be the language denoted by $0^*1^\omega$, or the language of all words with a finite prefix of zeroes and infinite suffix of ones. It's easy enough to think up a BA that recognises this language, and so it's B&uuml;chi recognisable.
+
+But no keen automaton recognises it. Every keen automaton, being finite, has at most $n$ states. So, such an automaton on the input $0^{n+1}1^\omega$ must go through a cycle on the finite prefix of zeroes. But if that's the case, then it can repeat that cycle infinitely often. Hence the keen automaton recognises $0^\omega$ as well, which isn't a word of the given language.
+
+So no keen automaton recognises the language denoted by $0^*1^\omega$, and so keen automata cannot in general simulate BAs. Shame.
+
+** Pointed automata
+
+Let $F$ be a set of states, as in a BA. Let a run be accepted by a pointed automaton just when some state in $F$ is visited by that run. A pointed automaton, then, accepts a word just when a run on it reaches an accepting state; after that, the automaton doesn't care what happens.
+
+Again, this seems like a fairly weak class of automata, and so let's see what we can do with them.
+
+*** Can a B&uuml;chi automaton simulate it?
+
+Certainly; given a pointed automaton, copy that automaton, and from every accepting state add a transition to some new victory state $q_w$. Make $q_w$ an accepting state, and add a transition $(q_w, a, q_w)$ for every letter $a$ of $\alphabet$. Then there's an accepting run on our new automaton precisely when that run can reach $q_w$, and that happens precisely when that run visits an accepting state at least once.
+
+*** Can it simulate a B&uuml;chi automaton?
+
+No. The worry is that a pointed automaton accepts a word too early, in a rough sense, and so let's hash out that worry more formally.
+
+We'll consider here the language denoted by $(0+1)^*0^\omega$, or the language of every word ending with infinitely many zeroes. This is easy enough to recognise with a BA, by adding a state at the start to faff about in for the finite prefix, with a nondeterministic guess that we've left the prefix into a state accepting all and only zeroes (off the top of my head, I think this can only be done with a nondeterministic BA, though!).
+
+The problem for pointed automata is that they have finitely many states. Thus, if a pointed automaton accepts some word $u$ in $(0+1)^*0^\omega$, it's accepted after seeing only a finite prefix of it. Given that the pointed automaton in question has $n$ states, and given that it accepts $0^\omega$, it must accept after only having seen the finite string $0^n$.
+
+Given that the pointed automaton also has to accept every member of the set denoted by $0^n1^*0^\omega$, however, it follows that the pointed automaton must accept the word $0^n1^\omega$. That's because it accepts all words in $0^n1^*0^\omega$, and so there must actually be a run over the word $0^n1^\omega$. Since the pointed automaton has seen an accepting state in the first $n$ symbols, it accepts $0^n1^\omega$. But it shouldn't, and so we have a B&uuml;chi-recognisable language unrecognisable by a pointed automaton. Hence there are BAs that can't be simulated by pointed automata.
+
+* Different models of computation
+
+What happens if now read our infinite words with something other than an automaton, but keep the spirit of the B&uuml;chi acceptance condition? Let's try them out, and see if the expected hierarchy of strength emerges.
+
+Note that I'm just going off of what seems natural here; I'm unsure if there are more established definitions or names in the literature! If there are, then please forgive me.
+
+** Pushdown B&uuml;chi automata
+
+Take a usual definition of a pushdown automaton---say, a six-tuple $\tuple{Q, \alphabet, \tapealphabet, \delta, q_0, F}$, a finite automaton with a stack---and run it on infinite words, accepting just when we visit some subset of accepting states infinitely often. That's what I'll take to be the Pushdown B&uuml;chi Automaton (PBA).
+
+*** Can a B&uuml;chi automaton simulate it?
+
+No. Here we'll show that a PBA can recognise the language $\{0^n1^n \mid n \geq 1\}^\omega$, but that no BA can. It's easy enough to show that a PBA can recognise that language; we have an accepting state which is reached when the stack is empty, push onto the stack when we see a zero, and pop from the stack when we see a one. If we see a one when the stack is empty, then we reject. That recognises the language $\{0^n1^n \mid n \geq 1\}^\omega$.
+
+No BA can recognise that language, though. We'll show this by the idea that, since any accepting BA has at most $n$ states, it must make some loop involving an accepting state in some inconvenient position. We'll exploit this inconvenience.
+
+So, given any BA with $n$ states which purports to recognise $\{0^n1^n \mid n \geq 1\}^\omega$, consider the word $(0^n1^n)^\omega$. Since this word is in $\{0^n1^n \mid n \geq 1\}^\omega$, it must be accepted by the BA. But since the BA has only $n$ states, it /must/ loop in the first block of $n$ zeroes of the word. But if it loops, then we know we can pump up that looped section and repeat it arbitrarily many times.
+
+The upshot of this is that any BA with $n$ states that accepts $(0^n1^n)^\omega$ must also accept $0^{2n}1^n(0^n1^n)^\omega$. But that word isn't in the language $\{0^n1^n \mid n \geq 1\}^\omega$. So no BA recognises the language $\{0^n1^n \mid n \geq 1\}^\omega$, and so PBAs can recognise languages that BAs can't.
+
+*** Can it simulate a B&uuml;chi automaton?
+
+Indeed it can; given a BA, we just run a PBA with the same states, transition function, and so on, and just completely ignore the stack. That does the trick.
+
+** B&uuml;chi Turing Machines
+
+Let's take a standard Turing machine (here let's suppose it's a seven-tuple $\tuple{Q, \alphabet, \tapealphabet, \delta, q_0, q_{\mathrm{acc}}, q_{\mathrm{rej}}}$, but let it run on infinite words. As expected, say that a run is accepting just when the accepting state $q_{\mathrm{acc}}$ is visited infinitely often, and say that a run is rejecting just when the accepting state $q_{\mathrm{rej}}$ is visited infinitely often.
+
+That already leads to an interesting difference. Here, a Turing machine can loop (in the sense that it enters accepting and rejecting states each only finitely often), accept, reject, or let's say crash (so visit both accepting and rejecting states infinitely often).
+
+We could've also said that a machine rejects if it enters the rejecting state at all, but that doesn't feel nice and symmetric.
+
+*** Can a B&uuml;chi automaton simulate it?
+
+No (as expected!). We can just use the same language as we did for the pushdown BA, namely the language $\{0^n1^n \mid n \geq 1\}^\omega$. A BTM can recognise that just by systematically going back and forth through the word and counting whether the number of $0$'s and $1$'s in a given chunk balancce out. But of course no BA recognises that language. So BTMs are more expressively powerful than BAs.
+
+Of course, this assumes that we only care about acceptance. If we also want to explicitly reject every word not in that language, I think we run into more problems; we'll consider those in the next section.
+
+As for comparing BTMs to PBAs, we again get that BTMs are more expressive. Take your favourite decidable language $L$ that's not context free---say, the language of all valid codes of Turing machines---add a hash between words, and repeat that infinitely. No PBA can recognise that; if one could, we could extract a pushdown automaton which recognises valid Turing machine codes. But, given that the language of valid Turing machine codes is decidable, we have a TM that decides it; set that TM to loop back to the initial state every time it accepts a code, and we have a BTM that decides $L$. So BTMs are stronger than PBAs as well, as we'd expect.
+
+*** Can it simulate a B&uuml;chi automaton?
+
+It depends on what notion of simulation we're going for. If we just want a BTM that accepts a word when a given BA does, then we can; given a BA, we just create a BTM which encodes the transition relation of that BA. We don't have to worry about writing anything to the tape, since the BA doesn't do anything like that.
+
+More formally, given a BA, we can just define our BTM as follows:
+- $Q$ is the set of states of the original BA,
+- $\alphabet$ is the alphabet of the BA,
+- $\tapealphabet$ is the union of the alphabet $\alphabet$, as well as a letter $a_f$ for each final state $f$ in the BA
+- $\delta$ is just the transition relation of the original BA, with the additional transitions of $\tuple{q, a, q_{\mathrm{acc}}}$ and $\tuple{q_{\mathrm{acc}}, a_f, f}$ for accepting states $f$ in the BA,
+- $q_0$ is the initial state of the BA,
+- $q_{\mathrm{acc}}$ is just some state, and
+- $q_{\mathrm{rej}}$ is an inaccessible state.
+The trouble with this is that our BTM doesn't reject when the BA would reject a word, since for our BTM to reject we need it to visit a rejecting state infinitely often. We can't easily modify the above method, though, since there are some languages which are rejected only in light of their infinite suffix.
+
+To put that more clearly, consider the language $L$ of words with infinitely many $1$'s in them. It's easy to see how to make a BTM that accepts that language using the above method. But we can't just make the BTM visit a rejecting state every time it sees a zero; then the BTM will crash on some words that it ought to accept. On the other hand, there's no finite index by which time the BTM knows to loop on a rejecting state; we can't distinguish a word to reject from a word to accept by looking only at a finite prefix of it. Therefore, in general, a BTM constructed by the above method won't be able to accept precisely the words that a given BA accepts, and reject all those that the BA rejects.
+
+Of course, we can appeal to other constructions as well. But at this point I admit that I'm a bit stuck! It seems like there's no good way to decide the language $L$ in the way that we'd like to. Of course, it's decidable whether or not the language defined by a BA is empty, and so we can try to figure out, given a word $w$, whether the language $L_{\mathrm{BA}} \cap \{w\}$ is empty or not. But how we get this information about $w$ in finite time is unclear. Seems challenging, so needs more thought!
+
+There are certainly fully decidable subclasses of languages, where we accept precisely those accepted by some BA and reject all others; the languages accepted by pointed automata seem to fit this bill (as in, if you keep rejecting until you see a desired state, then we get a BTM that accepts precisely those words accepted by the pointed automaton, and rejects all others). In general, though, there doesn't seem to be a good way to decide languages using BTMs, even if they don't seem undecidable.
+
+* Closing thoughts
+
+It's interesting to see how we can generalise models of computation to infinite words! No doubt there are many more interesting examples of such automata than the above. It helps, I think, to see how we can stretch and morph these models, so the above's been good fun. Who knows? Maybe some of these automata will show up again soon enough.

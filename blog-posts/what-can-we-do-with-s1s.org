@@ -1,0 +1,238 @@
+title : What can we do with S1S?
+subtitle : The sorts of formulae definable with the successor
+date : 03-08-2025
+tags : definability, s1s, logic
+
+As it happens, quite a lot.
+
+I've been running into /S1S/---that is, the monadic second-order theory of one successor over the naturals---recently, and found the connection between S1S-definable sets and B&uuml;chi-recognisable languages interesting. Given that, I thought I'd see what exactly can be done with S1S. By varying the interpretation of the underlying model, it turns out that there's a suprising amount we can say about seemingly quite different topics. Let's see what we can do.
+
+Throughout, we'll focus on models of S1S which are /infinite binary strings/, or more formally elements of $\mathbb{B}^\omega$. These are words which are infinite strings over $0$'s and $1$'s that look something like
+\[ 0111010010000100\dots . \]
+We'll talk about these in S1S, which involves:
+- the usual connectives and quantifiers (over individual natural numbers) of first-order logic,
+- the successor function, which maps the number $n$ to $n+1$,
+- quantification over sets of natural numbers, infinite or not, and
+- a predicate $Q_1$, which holds of a position $i$ just when the $i\th$ element of a given infinite binary word is a $1$. 
+We'll denote the successor function by $s(x)$ and sets of natural numbers by the symbols $X, Y, Z$ and so on. An S1S formula may therefore look something like
+\[ \forall x \exists Y\ (x \in Y \implies Q_1(s(y))). \]
+
+Finally, we'll give our formulae below as formulae in one free second-order variable; our formulae will be of the form $\phi(X)$, which asserts that $\phi$ holds of the set $X$. By some imagination, we can assert that such formulae hold of an entire infinite binary string by replacing all instances of "$x \in X$" by "$Q_1(x)$" and "$x \not\in X$" by "$\neg Q_1(x)$".
+
+With that out of the way, let's define some sets.
+
+* Sets of natural numbers
+
+To start out, let's interpret our infinite binary strings as sets of natural numbers. Under this interpretation, the $i\th$ position of the string is $1$ just when the number $i$ is a member of the set we're interpreting. For instance, the infinite binary string
+\[ 0111010010000100\dots \]
+is interpreted as the set of Fibonacci numbers.
+
+** Individual sets
+
+Let's start out by writing S1S formulae that hold of precisely one set of natural numbers. There are two obvious candidates here---namely the empty set and $\omega$---and we can quite easily define them by the two formulae
+\[ \mathrm{empty}(X) \defeq \forall x\ x \not\in X \text{ and } \mathrm{full}(X) \defeq \forall x\ x \in X. \]
+
+We can also define any finite set of naturals that we'd like. Given a finite set $S$, we write our formula such that $i$ is an element of $X$ precisely when $i$ is in $S$. Formally,
+\[ \mathrm{equals\text{-}finite}_S(X) \defeq\forall x\ x \in X \biconditional \left( \bigvee_{i \in S} x = i \right). \]
+By the same idea we can define cofinite sets, by just checking that $i$ isn't an element of $S$:
+\[ \mathrm{equals\text{-}cofinite}_{S'} \defeq \forall x\ x \in X \biconditional \left( \bigvee+{i \in S} x \neq i \right). \]
+
+*** Arithmetic progressions
+
+The above sets are all well and good, but we're not really making use of the tools we've been given. Let's now use the successor function to define some sets which are neither finite nor cofinite.
+
+For instance, we can define the set of even numbers by
+\[ \mathrm{evens}(X) \defeq 0 \in X \and \forall x\ (x \in X \biconditional s(x) \not\in X). \]
+We can generalise this idea to get the set of all multiples of $k$, for any natural constant $k$ we like, by
+\[ \begin{align*} \mathrm{multiples\text{-}of\text{-$k$}}(X) \defeq 0 \in X &\and 1 \not \in X \and \dots \and (k-1) \not \in X\\ &\and (x \in X \biconditional s^k(x) \in X). \end{align*}\]
+Note that in the above $s^k$ is just the successor function applied $k$ times; for instance we have $s^3(x) = s(s(s(x))) = x+3$.
+
+Taking this idea further, we can define arithmetic progressions that start at $a$ with step $b$. Now, an immediate idea is to just replace $0$ in the above with $a$, but note that we don't want any values less than $a$ in the progression. We might try get around this by adding a big conjunction to the right-hand side, which asserts that any element of $X$ isn't less than $a$. But that feels messy.
+
+Rather, we'd like to simply say that, if $x < a$, then $x$ isn't in $X$. We can do this by defining the $<$ relation using a bit of second-order logic, writing
+\[ x < y \textit{ iff } \exists Y\ (y \in Y \and z \in Y \implies s(z) \in Y \and x \not\in Y). \]
+Using this, we can define our arithmetic progressions as follows.
+\[ \begin{align*}\mathrm{arithmetic\text{-}progression}_{a,b}(X) &\defeq a \in X \and \forall x\ (x \in X\\ &\biconditional (x > a \and s(x) \not\in X \and \dots \and s^{k-1}(x) \not\in X)).\end{align*} \]
+So we've managed to define linear sets of naturals using S1S.
+
+*** Unions and intersections
+
+Given that we're working with sets of natural numbers, we'd like to talk about unions, intersections, and complements of those sets. Thankfully, there's a nice duality between the Boolean set theoretic operations and the Boolean logical connectives, and so with two sets $S_1$ and $S_2$ and formulae $\phi_{S_1}$ and $\phi_{S_2}$ defining them, we can get away with writing
+\[ \begin{align*} \phi_{S_1 \union S_2} &\defeq \forall x\ (x \in X \biconditional \exists Y\ (x \in Y \and \phi_{S_1}(Y) \or \phi_{S_2}(Y))),\\ \phi_{S_1 \intersect S_2} &\defeq \forall x\ (x \in X \biconditional \exists Y\ (x \in Y \and \phi_{S_1}(Y) \and \phi_{S_2}(Y)))\text{, and}\\ \phi_{S_1^\complement} &\defeq \forall x\ (x \in X \biconditional \exists Y\ (x \in Y \and \neg \phi_{S_1}(Y))). \end{align*} \]
+
+This, along with the arithmetic progressions we defined above, lets us define semi-linear sets as well as ultimately periodic sets generally. Conveniently, it lets us define cofinite sets a bit more neatly as well (since we'd just want the complement of a finite set).
+
+** Families of sets
+
+We've given a fair few formulae that hold of precisely one set of naturals, but we'd also like to talk about families of sets. To this end, let's consider the above formulae we've given as singleton sets of sets. For instance, we get that $\mathrm{empty}(X)$ defines the set $\set{0000\dots}$. By identifying formulae with the families of sets they define, we can perform the usual Boolean operations on these sets as follows.
+\[ \begin{align*} \phi_1(X) \union \phi_2(X) &\defeq \phi_1(X) \vee \phi_2(X),\\ \phi_1(X) \intersect \phi_2(X) &\defeq \phi_1(X) \and \phi_2(X)\text{, and}\\ \phi(X)^\complement &\defeq \neg \phi(X). \end{align*} \]
+
+We can also define families of sets which contain some general pattern. For instance, if we want to define all the sets which have three consecutive members, we just use the formula
+\[ \mathrm{triple}(X) \defeq \exists x\ (x \in X \and s(x) \in X \and s(s(x)) \in X) \]
+to do the trick.
+
+Generally, given a family of sets defined by $\phi$, we can define the set of subsets of those sets satisfying some property $\psi$ by writing
+\[ \mathrm{subsets}^\phi_\psi \defeq \exists Y\ (\phi(Y) \and \forall x\ (x \in X \implies x \in Y)). \]
+
+There's a lot we can say about sets of natural numbers already, so let's move on and see what other interpretations we can apply S1S to.
+
+* LTL
+
+A natural way of talking about sets of infinite binary strings is to talk about them as infinite traces of programs. We do this using /LTL/, or /linear temporal logic/. By interpreting infinite binary strings as traces, we can make assertions about properties being satisfied at given points in the trace, as well as asserting temporal properties about the trace.
+
+Let's define the following four predicates:
+- $\next \phi$, which holds at a position in an infinite binary string just when the next position of that string satisfies $\phi$,
+- $\until{\phi}{\psi}$, which holds at a position in an infinite binary string just when $\psi$ is eventually true, and $\phi$ holds of all positions before then,
+- $\always \phi$, which holds at a position in an infinite binary string just when $\phi$ holds at all positions to the right, and
+- $\eventually \phi$, which holds at a position in an infinite binary string just when $\phi$ holds at some position to the right.
+Strictly speaking, we just need to define $\next \phi$ and $\until{\phi}{\psi}$, since $\eventually \phi$ can be defined as $\until{\mathbf{true}}{\phi}$ and $\always \phi$ as $\neg \eventually \neg \phi$. But it's nice to have explicit definitions, so we'll define each of these in turn.
+
+To make sense of the above, we need a formal notion of what it means for a formula to hold at a position, and we do that in the following section.
+
+** Machinery
+
+If we're going to define LTL, we need some formal definition of what it means for a formula to hold at a position. We can't do anything here that uses addition, since in defining the until, always and eventually operators we want the position at which we're starting to be variable. We don't have variable addition in S1S---indeed even just adding the function $x \mapsto 2x$ creates an undecidable theory [BHCV94]!---so we need some other way of talking about positions.
+
+To this end, let's define the notation $\phi(X)[i,j)$ to mean that $\phi$ is satisfied over the substring $X[x, y)$ (that's an interval including $x$ but excluding $y$). We'll have $\phi(X) = \phi(X)[0, \omega)$.
+
+We first need to bound our quantifiers so they look at the right positions of $X$. For this we define bounded quantifier notation $\forall_i^j x$ and $\exists_i^j$; each of these quantify over just the interval $[i, j)$. Formally, we have
+\[\begin{align*} \forall_i^j x\ \phi &\defeq \forall x\ ((i \leq x \and x < j) \implies \phi)\text{, and}\\ \exists_i^j x\ \phi &\defeq \exists x\ (i \leq x \and x < j \and \phi). \end{align*} \]
+Note that every unbounded quantifier $Q$ is implicitly a bounded quantifier $Q_0^\omega$. Noticing this lets us define /bounded normal form/, which a formula is in just when all its quantifiers are bounded. Every formula has an equivalent bounded normal form, and we use this in defining $\phi(X)[i,j)$.
+
+Formally, define $\phi(X)[i,j)$ to be $\phi(X)$ where:
+- All instances of $\forall (i' \leq x < j')$ are replaced by $\forall (i \leq x < j)$, as are instances of $\exists$, and
+- All constants $c$ are replaced by $i$.
+We'll see how we use this in defining the operators.
+
+** Operators
+
+*** Next
+
+First, we define the next operator:
+\[ \next \phi(X)[i, j) \defeq \phi(X)[s(i), j). \]
+We can see what this looks like by considering $\next \mathrm{full}(X)$; we'd expect this to be satisfied on all infinite binary strings whose first letter doesn't matter, and every letter after that is a $1$. Using our definition of $\next$, we see that
+\[ \next \mathrm{full}(X) = \forall (1 \leq x < \omega)\ (x \in X) \]
+and so we see that $\next$ works here.
+
+*** Until
+
+Defining $\until{\phi}{\psi}$ is a bit more complex, since we have to guess a position at which $\psi$ starts holding. But since we're not using variable addition, we can do that by just quantifying an existential variable.
+
+Formally, we define $\until{\phi}{\psi}$ as
+\[ \until{\phi}{\psi}(X)[i,j) \defeq \exists_i^j x\ (\psi[x, j) \and \forall_0^x z\ \phi[z, x))). \]
+We might, for instance, define $\until{0 \not\in X}{\mathrm{full}(X)}$, which expresses that $X$ has a prefix of all $0$'s and a suffix of all $1$'s. Expanding out our definition above, we get
+\[ \until{0 \not\in X}{\mathrm{full}(X)}[0, \omega) = \exists_0^\omega x\ (\mathrm{full}(X)[x, \omega) \and \forall_0^x z\ (z \in X)). \]
+That's just what we wanted!
+
+*** Always
+
+For $\always \phi$, we have the formula
+\[ \always \phi(X)[i,j) \defeq \forall_i^j x\ (\phi[x, j)). \]
+That's a nice clean definition. If we want something like $\always (0 \in X \implies 2 \in X)$, then expanding the above gets us
+\[ \always (0 \in X \implies 2 \in X) = \forall_0^\omega x\ (x \in X \implies s(s(x)) \in X) \]
+which looks correct.
+
+*** Eventually
+
+Finally, there's $\eventually \phi$, which we define as
+\[ \eventually \phi(X)[i,j) \defeq \exists_i^j x\ (\phi[x,j)). \]
+If we want to express that $X$ eventually contains a $1$, then we can do this using the formula $\eventually (0 \in X)$, which when expanded looks like
+\[ \eventually (0 \in X) = \exists_0^\omega x\ (x \in X). \]
+So the definition of $\eventually$ looks right as well.
+
+** Fun with LTL
+
+We now have the LTL operators defined in S1S! So we get all the expressive power that LTL has when talking about traces. But we can have fun applying LTL to infinite binary strings when we're interpreting them as sets of natural numbers; remember that all that's changed is our perspective!
+
+For instance, if we want a formula that is satisfied by all and only infinite sets, we can define
+\[ \mathrm{infinite}(X) \defeq \always \eventually (0 \in X) \]
+which holds just when there's no infinite suffix of $0$'s in the infinite binary string of $X$. But this means that $X$ has no greatest element, when interpreted as a set, and so is infinite.
+
+We can also define a formula expressing that $X$ has either even or infinite cardinality, by
+\[ \mathrm{even\text{-}or\text{-}infinite}(X) \defeq \always (0 \in X \implies \next \eventually (0 \in X)), \]
+which, combining with the negation of $\mathrm{infinite}(X)$, gets us a formula $\mathrm{even}(X)$ which expresses that $X$ has even cardinality.
+
+* $\omega$-regular expressions
+
+We'd now like to all the languages which can be defined by $\omega$-regular expressions. A nice corollary of this is showing that S1S can define as much as the B&uuml;chi automata can (and, as it happens, B&uuml;chi automata can do everything that S1S can as well!). To do that, we'll start off by defining regular prefixes.
+
+** Machinery
+
+We'd now like to all the languages which can be defined by $\omega$-regular expressions. A nice corollary of this is showing that S1S can define as much as the B&uuml;chi automata can (and, as it happens, B&uuml;chi automata can do everything that S1S can as well!). To do that, we'll start off by defining regular prefixes.
+
+** Machinery
+
+Throughout this section, we'll need to talk about regular expressions matching prefixes or subsections of given words. For instance, given an $\omega$-word $X$ and regular expression $E^*$, we'd like to check whether there exist indices $x_0, x_1, \dots, x_n$ such that the string $X[0,x_0]$ matches $E$, the string $X[x_0, x_1]$ matches $E$, and so on, up to the string $X[x_{n-1}, x_n]$ matching $E$.
+
+Happily, we already have this machinery from when we used it in LTL! We have to make a slight adjustment from intervals of the form $[i,j)$ to $[i,j]$, but it should be obvious how we do this; we just close the top interval when it's finite.
+
+** Regular expressions
+
+*** Single letters
+
+Let's start off by defining matches with the empty string $\emptystring$, which is easy enough:
+\[ \mathrm{matches}_\emptystring(X) \defeq \mathbf{true} \]
+and then formulae which match the single letters of $0$ and $1$:
+\[ \begin{align*} \matches_0 (X) &\defeq 0 \not\in X\\ \matches_1 (X) &\defeq 0 \in X. \end{align*} \]
+
+*** Concatenation
+
+For matching individual letters, we don't need to use the partitioning $\phi(X)[i,j]$. For concatenations we do need to make use of the partitioning, since we don't know ahead of time where we need to match a word. Thus, given regular expressions $E_1$ and $E_2$, we define the formula which matches their concatenation as
+\[ \matches_{E_1E_2}(X) \defeq \exists i\ (\matches_{E_1}(X)[0,i] \and \matches_{E_2}(X)[i+1, \omega]). \]
+The formula $\matches{E_1E_2}(X)$ holds true, then, just when some prefix of $X$ matches $E_1$, and everything after $X$ matches $E_2$.
+
+*** The Kleene star
+
+We then define the Kleene star; here we want to match all words that can be partitioned into a sequence of words matching a given regular expression. Intuitively, we'd like to be able to say that there are positions $x_1, x_2, \dots, x_n$ such that $w[0, x_1]$ matches $E$, that $w[x_1, x_2]$ matches $E$, and so on. But we can't quantify over unboundedly many variables using just first-order quantifiers.
+
+The trick is to use the second-order quantifiers. Recall that our domain is the set of natural numbers, and so we have access to sets of natural numbers in our theory. Therefore, if we want to say that there's some arbitrarily large collection of positions that we partition our word into, we just need to say that there's some set of these positions.
+
+We can therefore write the formula $\phi_{E^*}$ as follows:
+\[ \begin{align*} \matches_{E^*}(X) &\defeq \exists Y \forall x \forall y\ (x \in Y \and y \in Y \\ &\implies ((\neg \exists y\ y \in Y \and y < x) \implies \matches_{E}(X)[0,x])\\ &\and ((y > x \and \neg \exists z\ (z \in Y \and x < z < y)) \implies \matches_{E}(X)[x,y])\\& \exists w\ (w > \max (x,y))) \end{align*} \]
+which gets at the intuition we want; we have a set of indices, where $\phi[0, x_0]$ holds with $x_0$ the smallest index, and $\phi[x_i, x_{i+1}]$ holding between adjacent indices. That's just what we wanted.
+
+** The omega operator
+
+Finally, we want to define $E^\omega$, or the regular expression $E$ repeated infinitely many times. To do this, we just need to partition the word as we did with the Kleene star, but ensuring that $E$ is matched infinitely often. To do this, we can use some LTL trickery:
+\[ \begin{align*} \matches_{E^\omega}(X) &\defeq \exists Y \forall x \forall y\ (x \in Y \and y \in Y \\ &\implies ((\neg \exists y\ y \in Y \and y < x) \implies \matches_E [0,x])\\ &\and ((y > x \and \neg \exists z\ (z \in Y \and x < z < y)) \implies \matches_E[x,y])\\& \always \eventually(0 \in Y))). \end{align*} \]
+That looks a lot like the definition of $E^*$, and for good reason; all we've changed is adding that $\always \eventually (0 \in Y)$ at the end. Recall that $\always \eventually \phi(X)$ holds just when $\phi(X, i)$ holds for infinitely many $i$; since $0 \in Y$ is offset at every step, it follows that $\always \eventually (0 \in Y)$ holds of a set $Y$ just when that set has infinitely many members.
+
+We may have been able to do the above more neatly, but being able to use LTL to define a set of naturals, themselves being used to define an $\omega$-regular expression, is just too tempting. That's a very nice highlight of the unifying power of S1S.
+
+* Other interpretations
+
+It turns out that infinite binary strings are fairly versatile in their interpretations; we've already seen them interpreted as infinite words of a language, as sets of natural numbers, and as traces of programs, all in the above. But there are more interpretations, and S1S lets us talk about these as well.
+
+** As limits of sequences
+
+Given an infinite binary string, we can view the string as the limit of the sequence of its prefixes. For example, given the infinite binary string
+\[ 0110110100100 \dots \]
+we can view this as the limit of the sequence of prefixes
+\[ 0, 01, 011, 0110, 01101, 011011, 0110110, \dots .\]
+Now we have a sequence of finite binary strings; we can interpret these again as binary representations of natural numbers, and now we can talk about these sequences in the language of S1S. Neat!
+
+This gives us a way of characterising such sequences in S1S; we can for instance define the sequence given by $u_0 = 1; u_{n+1} = 2^{u_n}$ by the S1S formula
+\[ \phi_{2^n}(X) \defeq 0 \in X \wedge \forall y\ (y > 0 \implies y \not\in X). \]
+
+In general, S1S lets us characterise particular families of exponential sequences that grow at a rate between $2^x$ and $2^{x+1}$. Admittedly, there's not a whole lot we can say about such sequences, but it's at least interesting that we can talk about them using a formalism that also captures LTL and $\omega$-regular languages.
+
+** Rewrite systems
+
+We can also talk about infinite binary strings as though they've been generated from a finite set of rewriting rules. For instance, consider the rules which generate the /Prouhet-Thue-Morse/ (PTM) sequence:
+\[ \begin{align*} 0 &\to 01 \\ 1 &\to 10 \end{align*} \]
+which, starting with zero, gives us the first few steps of
+\[0, 01, 0110, 01101001, 0110100110010110, \dots .\]
+Taking the limit of this sequence gets us the PTM sequence. It looks awfully like the kind of thing that we've been talking about using S1S. Unfortunately, the most obvious way to characterise the PTM sequence using something like S1S is by the following:
+\[\begin{align*} \mathrm{PTM}(X) \defeq 0 \in X &\and (x \in X \biconditional (x+x) \in X \and (x+x+1) \not\in X)\\ &\and (x \not\in X \biconditional (x+x)\not\in X \and (x+x+1) \in X) \end{align*} \]
+which uses addition. We can't get addition in S1S, though, and so we can't appeal to using addition to define the PTM sequence.
+
+Indeed, talking about rewrite systems, at least those where the letters at a given position depend on the letters more than a constant number of places away, can't be done in just S1S. So the theory has its limitations, despite all we've done so far!
+
+* Concluding remarks
+
+We've seen a lot that S1S can do, and many interpretations of infinite binary strings which give meaning to S1S. If anything, the moral of the story is that what we can express with a theory depends not only on the theoretical tools of that theory, but on what interpretations we give to the objects of the theory. There's a lot to logic, then!	
+
+
+
+
+

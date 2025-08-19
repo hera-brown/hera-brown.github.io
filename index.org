@@ -1,0 +1,10 @@
+title : Hello! I'm Hera (they/them).
+subtitle : Welcome to my website.
+date : 31-07-25
+tags :
+
+I study computer science and philosophy at the <a href="https://cs.ox.ac.uk">University of Oxford</a>; I'm just starting my fourth and final year here. Over the past year, I've been working on figuring out the definability and decidability of certain arithmetic theories, particularly Presburger arithmetic and its derivatives. More broadly, I'm interested in all things logical, be that automata theory, model theory, set theory, and related fields. 
+
+On this website you can find my publications, blog, and some info about me; that should all be in the navigation section on the left. If you're interested in contacting me, then do send me an email! I'd be happy to chat.
+
+Do send emails to /(($\lambda x$.$x$.brown0707@gmail.com) hera)/! I'm always happy to chat.

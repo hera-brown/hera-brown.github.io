@@ -1,0 +1,465 @@
+:root {
+    /* Colours have been sourced from the lovely cartoon-candy palette by polyphrog.
+     * Find them at https://lospec.com/palette-list/cartoon-candy !
+     * Names are by me, though; no idea what polyphrog would think.                 */
+    --cc-orange-juice   : rgb(255,135,65);
+    --cc-edinburgh-rock : rgb(255,206,149);
+    --cc-grapefruit     : rgb(241,139,105);
+    --cc-strawberry     : rgb(208,65,83);
+    --cc-cocoa-bean     : rgb(102,45,57);
+    --cc-warm-fudge     : rgb(174,91,57);
+    --cc-ovaltine       : rgb(232,158,86); /* Still not sure what ovaltine actually is. */
+    --cc-lemonade       : rgb(255,220,106);
+    --cc-lime-juice     : rgb(213,246,110);
+    --cc-avocado        : rgb(141,193,86);
+    --cc-cucumber       : rgb(74,122,71);
+    --cc-mint-chocolate : rgb(45,68,67);   /* I'm aware mint chocolate usually isn't green. */
+    --cc-dark-chocolate : rgb(23,17,26);
+    --cc-ube            : rgb(110,81,106);
+    --cc-porridge       : rgb(170,140,148);
+    --cc-oat-milk       : rgb(223,203,191);
+    --cc-sugar          : rgb(255,255,255);
+    --cc-strawberry-milk: rgb(255,153,169); /* Not to be confused with --cc-strawberry */
+    --cc-dragonfruit    : rgb(199,102,178);
+    --cc-parma-violet   : rgb(131,58,149);  /* They're usually a lighter purple, right? Oh well. */
+    --cc-blueberry-juice: rgb(59,44,74);
+    --cc-cornflower     : rgb(73,85,136);
+    --cc-blue-raspberry : rgb(96,168,176);
+    --cc-mint-toothpaste: rgb(154,231,201);
+    /* What a delicious spread of colours. */
+    /* And here are some extra, for minor detailing: */
+    --cc-licorice : rgb(36,27,43);
+ }
+
+/* The computer modern fonts (I spent a few hours trying to figure out the best font, and then I remembered) */
+@font-face {
+    font-family: 'cmu-sans-serif-bold';
+    src: url('../fonts/cmu-sans-serif-bold.ttf') format('truetype')
+}
+@font-face {
+    font-family: 'cmu-sans-serif';
+    src: url('../fonts/cmu-sans-serif.ttf') format('truetype')
+}
+@font-face {
+    font-family: 'cmu-sans-serif-italic';
+    src: url('../fonts/cmu-sans-serif-italic.ttf') format('truetype')
+}
+@font-face {
+    font-family: 'cmu-serif';
+    src: url('../fonts/cmu-serif.ttf') format('truetype')
+}
+@font-face {
+    font-family: 'cmu-serif-bold';
+    src: url('../fonts/cmu-serif-bold.ttf') format('truetype')
+}
+
+/* Everything's font weight is normal so that we can use different fonts for different weights instead. Likewise for obliqueness. */
+* {
+    font-weight : normal;
+    font-style : normal;
+
+    margin : 0px;
+    padding : 0px;
+}
+
+::selection{
+    background: var(--cc-avocado);
+}
+
+h1,h2,h3 {
+    font-family : 'cmu-serif-bold', Georgia, serif;
+    text-align : center;
+    margin-left : -24px;
+    margin-right: -24px;
+    margin-top : 12px;
+}
+
+em{
+    font-family : 'cmu-sans-serif-italic';
+    color : var(--cc-mint-toothpaste);
+}
+
+/* Box to cover the top of the screen from the scrolling background */
+body:before{
+    position : absolute;
+    top : 0px;
+    width : 100%;
+    height : 221.5px;
+    z-index : -10;
+    color : var(--cc-mint-chocolate);
+    background-color : var(--cc-dark-chocolate);
+    content : " ";
+}
+
+body {
+    background-color : var(--cc-dark-chocolate);
+    background-image : url('../img/website-bg.gif');
+    image-rendering: pixelated;    
+    background-repeat : repeat;
+    background-position : 20% 200px;
+    font-family : "cmu-sans-serif", sans-serif;
+    color : var(--cc-sugar);
+    overflow-x : hidden;
+}
+
+header {
+    position : absolute;
+    background-color : var(--cc-dark-chocolate);
+    top : 40px;
+    height : 100px;
+    left : 50%;
+    width : 640px;
+    margin-left  : -332px;
+
+    text-align : center;
+    padding : 12px;
+
+    border-top : 6px solid var(--cc-mint-chocolate);
+}
+header h1:before{
+    position : absolute;
+    top : -55px;
+    padding-top : 10px;
+    left : 50%;
+    width : 579px;
+    height : 70px;
+    margin-left : -289.5px;
+    color : var(--cc-mint-chocolate);
+    font-size : 18px;
+    font-family : 'cmu-serif-bold', serif;
+    line-height : 18px;
+    white-space : pre;
+    content : "Castles in the Sky: A blog about theoretical computer science\A by Hera Brown";
+
+    border-left : 6px solid var(--cc-mint-chocolate);
+    border-right : 6px solid var(--cc-mint-chocolate);
+}
+
+header hgroup{
+    padding-top:20px;
+    margin-left : -300px;
+    margin-right : -300px;
+}
+
+header hgroup:before{
+    font-family : 'cmu-serif-bold', serif;
+    color : var(--cc-sugar);
+    display : block;
+    text-transform : uppercase;
+    content : "This blog post is about"; /* We could also just make this all uppercase */
+    margin-bottom : -20px;
+}
+
+header h2{
+    margin-top : -12px;
+    color : var(--cc-lime-juice);
+}
+
+aside {
+    position : absolute;
+    top : 132px;
+    left : 50%;
+    width : 664px;
+    margin-left : -332px;
+    
+    height : 60px;
+
+    padding-top : 12px;
+    padding-bottom : 12px;
+
+    text-align : center;
+
+    border-bottom : 6px solid var(--cc-mint-chocolate);
+}
+
+aside nav{
+    padding-top : 12px;
+}
+
+aside h1{
+    text-decoration : underline;
+    text-decoration-thickness : 2px;
+    text-decoration-color : var(--cc-avocado);
+
+    font-size : 1.5em;
+}
+
+main:before{
+    display : block;
+    pointer-events : none;
+    content : " ";
+    width : 579px;
+    margin-left : -45px;
+    margin-top : -70px;
+    height : 70px;
+    border-left : 6px solid var(--cc-mint-chocolate);
+    border-right : 6px solid var(--cc-mint-chocolate);
+}
+
+main {
+    position : absolute;
+    top : 221.5px;
+    left : 50%;
+    width : 500px;
+    margin-left : -290px;
+    padding-left : 40px;
+    padding-right : 40px;
+    padding-top : 40px;
+
+    background-color : var(--cc-dark-chocolate);
+
+    border-left : 6px solid var(--cc-mint-chocolate);
+    border-right : 6px solid var(--cc-mint-chocolate);
+}
+
+main:after{
+    margin-top : 10px;
+    margin-left : -72px;
+    margin-right : -72px;
+    border-top : 6px solid var(--cc-mint-chocolate);
+    height : 40px;
+    display : block;
+    content : " ";
+}
+
+main h1, main h2, main h3{
+    text-decoration : underline;
+    text-decoration-thickness : 2px;
+    text-align : left;
+}
+main h1:before{
+    display : block;
+    content : " ";
+    height : 1.2em;
+    margin-bottom : -1.2em;
+    width : 575.5px;
+    margin-left : -24px;
+    border-left : 11px solid var(--cc-mint-chocolate);
+    border-right : 11px solid var(--cc-mint-chocolate);
+}
+main h1{
+    font-size : 1.7em;
+    text-decoration-color : var(--cc-lime-juice);
+}
+main h2:before{
+    display : block;
+    content : " ";
+    height : 1em;
+    margin-bottom : -1.3em;
+    width : 576.5px;
+    margin-left : -23px;
+    border-left : 9px solid var(--cc-mint-chocolate);
+    border-right : 9px solid var(--cc-mint-chocolate);
+}
+main h2{
+    font-size : 1.3em;
+    text-decoration-color : var(--cc-avocado);
+}
+main h3:before{
+    display : block;
+    content : " ";
+    height : 1em;
+    margin-bottom : -1.3em;
+    width : 577px;
+    margin-left : -22px;
+    border-left : 8px solid var(--cc-mint-chocolate);
+    border-right : 8px solid var(--cc-mint-chocolate);
+}
+main h3{
+    font-size : 1.17em;
+    text-decoration-color : var(--cc-cucumber);
+}
+main p{
+    font-family : "cmu-sans-serif", sans-serif;
+    text-indent : 16px;
+    line-height : 1.2;
+}
+
+main ul{
+    list-style-type : square;
+}
+
+footer {
+    position : fixed;
+    bottom : 0px;
+    width : 100%;
+    background-color : var(--cc-dark-chocolate);
+    font-family : "cmu-sans-serif", sans-serif;
+}
+
+#footer-left{
+    float : left;
+}
+#footer-right{
+    float : right;
+    margin-right : 12px;
+}
+
+footer p{
+    font-size : 10px;
+}
+
+/** For the TCS4F logo */
+footer a{
+    position : absolute;
+    top : -72px;
+    left : -8px;
+}
+
+aside ul, aside li{
+    display : inline;
+    font-family : 'cmu-sans-serif', sans-serif;
+}
+
+aside h1{
+    text-align : center;
+    margin-top : 0px;
+}
+aside a{
+    color : var(--cc-lime-juice);
+    font-family : 'cmu-sans-serif';
+    padding-left : 6px;
+    padding-right : 6px;
+}
+aside a:hover{
+    text-decoration-thickness : 2px;
+}
+aside a:active{
+    color : var(--cc-sugar);
+}
+aside a:visited{
+    color : var(--cc-avocado);
+}
+
+h1 .katex .base {
+    display : inline;
+}
+
+article{
+    margin-bottom : 30px;
+    margin-left : -24px;
+    width : 110%;
+}
+article + article{
+    margin-top : -38px;
+}
+
+article hgroup{
+    position : relative;
+    width : 100%;
+    display : block;
+    height : auto;
+}
+
+article h1{
+    width : 460px;
+    line-height : 1em;
+    font-size : 1.3em;
+    margin-bottom : 6px;
+    text-decoration-color : var(--cc-avocado);
+    margin-left : 0px; margin-right : 0px;
+}
+
+article h1 .title-link{
+    color : var(--cc-sugar);
+    font-family : 'cmu-serif-bold';
+}
+article h2 .title-link{
+    color : var(--cc-avocado);
+    text-decoration : none;
+}
+article h1 a{
+    text-decoration : none;
+}
+article h1:hover{
+    text-decoration-thickness : 4px;
+}
+article h2{
+    position : relative;
+    display : block;
+    margin-top : -6px;
+    font-size : 1em;
+    font-family : 'cmu-sans-serif';
+    text-decoration : none;
+    width : 460px;
+    margin-left : 0px; margin-right : 0px;
+}
+article h2:before{
+    display : none;
+}
+article time{
+    position : absolute;
+    display : block;
+    left : 460px;
+    top : 27px;
+    color : var(--cc-avocado);
+    font-size : 1em;
+    margin-top : -24px;
+}
+
+article p{
+    text-indent : 0px;
+    width : 460px;
+    height : 1.2em;
+    overflow : hidden;
+    white-space : nowrap;
+    text-overflow : ellipsis;
+}
+
+.publication-list{
+    list-style-type : none;
+}
+
+.publication{
+    display : block;
+}
+
+.publication h1{
+    width : 480px;
+    line-height : 1em;
+    font-size : 1.3em;
+    margin-bottom : 6px;
+}
+.publication h1:hover{
+    text-decoration-thickness : 4px;
+}
+.publication h2{
+    font-size : 1em;
+    color : var(--cc-lime-juice);
+    text-decoration : none;
+    font-family : 'cmu-sans-serif';
+    margin-top : -6px;
+}
+
+.publication h2:before{
+    display : none;
+}
+
+.publication h1 .title-link{
+    color : var(--cc-sugar);
+    font-size : 0.8em;
+    font-family : 'cmu-serif-bold';
+}
+.publication h1 a{
+    text-decoration : none;
+}
+
+.publication time{
+    position : absolute;
+    display : block;
+    left : 480px;
+    color : var(--cc-lime-juice);
+    font-size : 1em;
+    margin-top : -20px;
+}
+
+.publication hgroup > a{
+    position : absolute;
+    display : block;
+    left : 520px;
+    margin-top : -40px;
+}
+
+.publication p:first-of-type{
+    text-indent : 0px;
+}
